@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 const mongoString = "mongodb+srv://LakshaySK:Lakshaysk@2000@blockingwebete.euqlx.mongodb.net/?retryWrites=true&w=majority";
 var cors = require("cors");
 
+const app = express();
+app.use(cors());
+app.use(express.json());
 
 mongoose.connect(mongoString);
 const database = mongoose.connection;
@@ -17,14 +20,9 @@ database.once("connected", () => {
   console.log("Database Connected");
 });
 
-const app = express();
-app.use(cors());
-console.log("cors enabled");
-
-app.use(express.json());
 
 
-app.use("/api/routes", routes);
+app.use("/api/routes", routes);  
 app.listen(process.env.PORT || 8000, () => {
   console.log(`Server Started at ${8000}`);
 });
