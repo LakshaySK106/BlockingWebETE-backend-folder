@@ -2,7 +2,7 @@ require("dotenv").config();
 const routes = require("./routes/routes");
 const express = require("express");
 const mongoose = require("mongoose");
-const mongoString = "mongodb+srv://LakshaySK:Lakshaysk@2000@blockingwebete.euqlx.mongodb.net/?retryWrites=true&w=majority";
+const mongoString = "mongodb://localhost:27017/blockingWebETE";
 var cors = require("cors");
 
 const app = express();
