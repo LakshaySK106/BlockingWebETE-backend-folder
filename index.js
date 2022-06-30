@@ -9,7 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(mongoString);
+mongoose.connect(process.env.MONGODB_URI || mongoString,{
+  useNewUrlParser: true,
+  useUnifiedTopology: true 
+});
 const database = mongoose.connection;
 
 database.on("error", (error) => {
@@ -17,12 +20,15 @@ database.on("error", (error) => {
 });
 
 database.once("connected", () => {  
-  console.log("Database Connected");
+  console.log("Database Connected!");
 });
 
+app.use("/api/routes", routes);
 
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static('frontend/build'));
+}
 
-app.use("/api/routes", routes);  
 app.listen(process.env.PORT || 8000, () => {
   console.log(`Server Started at ${8000}`);
 });
